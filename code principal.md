@@ -2,8 +2,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-
 def euler_flux(U, n: np.array, gamma=1.4):
     assert (
         U.shape[0] == 5
@@ -42,6 +40,8 @@ def conserved_to_primitive(U, gamma=1.4):
 
 
 #Rusanov
+
+
 def rusanov_flux(Ul, Ur, n, gamma=1.4):
 
     Fl = euler_flux(Ul, n, gamma)
@@ -97,6 +97,7 @@ def rusanov_flux(Ul, Ur, n, gamma=1.4):
     )
     return SL, SR
 
+
 #HLL
 
 def HLL(Ul, Ur, n, gamma=1.4):
@@ -108,6 +109,8 @@ def HLL(Ul, Ur, n, gamma=1.4):
 
     F = np.where(SR<0, Fr, np.where(SL>0, Fl, (SR * Fl - SL*Fr + SL*SR*(Ur-Ul))/(SR - SL) ))
     return F, SL, SR
+
+
 
     #HLLC
 def HLLC(Ul, Ur, n, gamma=1.4):
@@ -296,13 +299,6 @@ dx = xh[1] - xh[0]
 n = np.array([1, 0, 0])
 
 # Condition initiale
-#U = np.zeros((5, nx - 1))
-#Tube de Toro
-#U[0] = np.where(xh < 0, 1, 0.125) # density rho
-#U[1] = np.where(xh < 0, .75, 0.) # velocity u
-#U[4] = np.where(xh < 0, 1, 0.1) # pressure p
-#U = primitive_to_conserved(U)
-#print(U.shape)
 
 test_number = 1 
 U = initialize_test(test_number, xh)
